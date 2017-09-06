@@ -15,14 +15,13 @@ passport.deserializeUser(async (id, done) => {
 		return done(null, user);
 	}
 	done(null, false);
-
 })
 
 passport.use(
 	new TwitterStrategy({
 		consumerKey: keys.twitterConsumerKey,
 		consumerSecret: keys.twitterConsumerSecret,
-		callbackURL: 'http://localhost:5000/auth/twitter/callback'
+		callbackURL: '/auth/twitter/callback'
 	},
 	async (token, tokenSecret, profile, done) => {
 		const existingUser = await User.findOne({ twitterId: profile.id });

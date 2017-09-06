@@ -3,8 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "8.4.0",
+    "npm": "4.6.1"
+  },
   "scripts": {
-    "dev": "nodemon index.js"
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +23,7 @@
     "passport-twitter": "^1.0.4"
   },
   "devDependencies": {
+    "concurrently": "^3.5.0",
     "nodemon": "^1.12.0"
   }
 }
