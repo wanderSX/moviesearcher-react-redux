@@ -1,17 +1,27 @@
 import React, {Component} from 'react';
-import MovieList from './MovieList';
+import { connect } from 'react-redux';
+import MainMovieList from './MainMovieList';
+import SearchBox from './SearchBox';
+import FilterBox from './FilterBox';
+import { fetchTopMovies } from '../actions';
+
 
 class Home extends Component {
+
+	componentDidMount() {
+		this.props.fetchTopMovies();
+	}
+
 
 	render() {
 		return (
 			<div>
-				<MovieList />
+				<SearchBox />
+				<FilterBox />
+				<MainMovieList />
 			</div>
 		)
 	}
 }
 
-
-
-export default Home;
+export default connect(null, {fetchTopMovies})(Home);

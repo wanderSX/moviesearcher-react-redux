@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 require('./models/User');
-const authRouter = require('./routes/authRouter');
+const authRoutes = require('./routes/authRoutes');
+const movieRoutes = require('./routes/movieRoutes');
 const keys = require('./config/keys');
 require('./services/passport');
 
@@ -23,7 +24,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-authRouter(app);
+authRoutes(app);
+movieRoutes(app);
 
 const PORT = process.env.PORT || 5000 ;
 app.listen(PORT, () => {

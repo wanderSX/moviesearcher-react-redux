@@ -3,8 +3,10 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchUser } from '../actions';
 import Home from './Home';
-import MovieDetail from './MovieDetail';
+import MovieDetails from './MovieDetails';
 import Header from './Header';
+import Profile from './Profile';
+import requireAuth from './HOCs/requireAuth';
 
 class App extends Component {
 
@@ -18,8 +20,11 @@ class App extends Component {
       	<BrowserRouter>
       		<div>
             <Header />
-      			<Route exact path="/" component={Home} />
-      			<Route path="/movies/:id" component={MovieDetail} />
+            <div className='container'>
+        			<Route exact path="/" component={Home} />
+        			<Route path="/movies/:id" component={MovieDetails} />
+              <Route path="/profile" component={requireAuth(Profile)} />
+            </div>
       		</div>
       	</BrowserRouter>
       </div>
