@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import MainMovieList from './MainMovieList';
 import SearchBox from './SearchBox';
 import FilterBox from './FilterBox';
-import { fetchTopMovies } from '../actions';
+import { fetchTopMovies, resetMoviesState } from '../actions';
 
 
 class Home extends Component {
@@ -12,6 +12,9 @@ class Home extends Component {
 		this.props.fetchTopMovies();
 	}
 
+	componentWillUnmount() {
+		this.props.resetMoviesState();
+	}
 
 	render() {
 		return (
@@ -24,4 +27,4 @@ class Home extends Component {
 	}
 }
 
-export default connect(null, {fetchTopMovies})(Home);
+export default connect(null, {fetchTopMovies, resetMoviesState})(Home);

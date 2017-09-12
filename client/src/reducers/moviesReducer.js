@@ -1,7 +1,8 @@
 import {
 	FETCH_MOVIES,
 	FETCH_MOVIE_DETAILS,
-	SET_FILTER
+	SET_FILTER,
+	RESET_MOVIES_STATE
 } from '../constants/actionTypes';
 
 const INITIAL_STATE = {
@@ -17,7 +18,9 @@ export default function (state = INITIAL_STATE, action) {
 		case FETCH_MOVIES:
 			return {...state, moviesArray: action.payload};
 		case FETCH_MOVIE_DETAILS:
-			return { ...state, selectedMovie: action.payload } 	
+			return { ...state, selectedMovie: action.payload };
+		case RESET_MOVIES_STATE:
+			return { ...INITIAL_STATE };	 	
 		default:
 			return state	
 	}

@@ -3,7 +3,8 @@ import {
 	FETCH_MOVIES,
 	FETCH_MOVIE_DETAILS,
 	UPDATE_USER,
-	SET_FILTER
+	SET_FILTER,
+	RESET_MOVIES_STATE
 } from '../constants/actionTypes';
 
 import { fixPosterUrls } from '../utils/movieUtils';
@@ -60,4 +61,8 @@ export const removeFromFavorites = (id) => async (dispatch) => {
 
 export const setFilter = (str) => {
 	return ({ type: SET_FILTER, payload: str });	
+}
+
+export const resetMoviesState = () => {
+	return ({ type: RESET_MOVIES_STATE });
 }

@@ -1,0 +1,38 @@
+body, html {
+	margin: 0;
+	padding: 0;
+	background-color: #eeeeee;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+a {
+	text-decoration: none;
+}	
+
+.navbar{
+	background-color: #A0A6AE;
+	height: 80px;
+	color: white;
+	display: flex;
+  justify-content: space-between;
+}
+
+.navbar .brand-logo{
+	
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
