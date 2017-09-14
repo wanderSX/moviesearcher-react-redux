@@ -7,7 +7,6 @@ class MovieList extends Component {
 
 			const index = this.props.auth.user && this.props.auth.user.favoriteMovies.indexOf(movie.id);
 			let genres = [];
-			const movieIdsArray = movie.genre_ids || movie.genres;
 
 			if (this.props.genres.length) {
 				if (movie.genre_ids) {

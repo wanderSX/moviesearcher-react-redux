@@ -7,7 +7,6 @@ const getFavoriteMoviesIDs = (state) => state.auth.user.favoriteMovies;
 export const getVisibleMovies = createSelector(
 	[ getFilter, getMovies ],
 	(filter, movies) => {
-		console.log('filter', filter);
 		if (filter === '') {
 			return movies;
 		}

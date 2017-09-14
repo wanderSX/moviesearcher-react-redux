@@ -13,7 +13,6 @@ import { fixPosterUrls } from '../utils/movieUtils';
 const API_KEY = '1e1bde7f14240afd474dc201b3ff46f4'
 const ROOT_URL = 'https://api.themoviedb.org/3/'
 
-
 const fetchGenres = async (dispatch) => {
 	const res = await axios.get(`${ROOT_URL}genre/movie/list?api_key=${API_KEY}&language=en-US`);
 
@@ -41,7 +40,6 @@ export const fetchFavoriteMovies = () => async (dispatch, getState) => {
 	});
 	const res = await Promise.all(promises);
 	const movies = res.map(item => item.data);
-	console.log(genres.length);
 	if (!genres.length) {
 		fetchGenres(dispatch);
 	}
@@ -65,7 +63,6 @@ export const fetchMovies = (name) => async (dispatch, getState) => {
 export const fetchMovieDetails = (id) => async (dispatch) => {
 	const details = await axios.get(`${ROOT_URL}movie/${id}?api_key=${API_KEY}&append_to_response=credits`);
 	details.data.poster_path = `https://image.tmdb.org/t/p/w342${details.data.poster_path}`;
-	console.log('res', details.data);
 
 	dispatch({type: FETCH_MOVIE_DETAILS, payload: details.data});
 }

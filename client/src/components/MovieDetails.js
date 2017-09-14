@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom'
 class MovieDetails extends Component {
 
 	componentDidMount() {
-		//console.log(this.props);
+
 		const{ id } = this.props.match.params;
 		this.props.fetchMovieDetails(id);
 	}
@@ -31,7 +31,7 @@ class MovieDetails extends Component {
 			return <div>Loading...</div>;
 		}
 
-		const {vote_average, poster_path, title, overview, genres, release_date, credits} = this.props.movie;
+		const {vote_average, poster_path, title, overview, release_date, credits} = this.props.movie;
 		const director = credits.crew.find(member => member.job === 'Director');
 
 		return (

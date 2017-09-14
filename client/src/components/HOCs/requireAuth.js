@@ -6,9 +6,7 @@ export default function(WrappedComponent) {
 	class Authentication extends Component {
 
 		componentWillMount() {
-			console.log('cmw hoc');
 			const { auth, history } = this.props;
-			console.log('cmw hoc', auth.isAuthenticating );
 			if (!auth.isAuthenticating && !auth.user) {
 				history.push('/');
 			}

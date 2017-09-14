@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import placeholerIMG from '../images/placeholder.jpg';
 export default class MovieItem extends Component {
 
 	onImgLoadError(e) {
