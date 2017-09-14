@@ -27,6 +27,19 @@ app.use(passport.session());
 authRoutes(app);
 movieRoutes(app);
 
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+	const loggs = (req, res, next) => {
+		console.log("BLA BLA BLA");
+		console.log(req);
+		next();
+	}
+	const path = require('path');
+	app.get("*", loggs, (req, res) => {
+		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+	})
+}
+
 const PORT = process.env.PORT || 5000 ;
 app.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`)
