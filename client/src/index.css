@@ -1,7 +1,6 @@
 body, html {
 	margin: 0;
 	padding: 0;
-	background-color: #eeeeee;
 }
 
 html {
@@ -16,23 +15,61 @@ a {
 	text-decoration: none;
 }	
 
-.navbar{
-	background-color: #A0A6AE;
-	height: 80px;
-	color: white;
+.input-field.inline {
+	margin: 0
+}
+
+input.search-input {
+	margin: 0;
+	border: none;
+	padding-left: 10px;
+}
+
+input.filter {
+	padding-left: 10px;
+}
+
+.flex-row {
 	display: flex;
-  justify-content: space-between;
+	align-items: flex-end;
+	justify-content: space-between;
 }
 
-.navbar .brand-logo{
-	
+.flex-row.search-box {
+	align-items: center;
 }
 
-.flex {
-  display: flex;
-  justify-content: space-between;
+.movie-card-content {
+	padding: 5px 10px;
 }
 
-.wrap {
-  flex-wrap: wrap;
+.movie-card-title {
+	padding-right: 20px;
+	line-height: 24px;
+	font-size: 20px;
+	font-weight: 300;
+	white-space: nowrap;
+  overflow:hidden !important;
+  text-overflow: ellipsis;
+}
+
+.movie-card-score {
+	display: inline-flex;
+	font-size: 18px;
+	line-height: 24px;
+}
+
+.movie-card-year {
+	line-height: 20px;
+	align-items: center;
+}
+
+.btn-floating.search {
+	border-radius: 3px;
+	background: none;
+	box-shadow: none;
+}
+
+.movie-detail-poster {
+	width: 100%
 }

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { fetchMovieDetails } from '../actions';
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 class MovieDetails extends Component {
 
@@ -11,6 +11,19 @@ class MovieDetails extends Component {
 		this.props.fetchMovieDetails(id);
 	}
 
+	onImgLoadError(e) {
+		const fallbackImg = require('../images/placeholder_vertical.jpg');
+		e.target.src = fallbackImg;
+	}
+
+	renderGenres() {
+		return this.props.movie.genres.map(genre => genre.name).join(', ');
+	}
+
+	renderCast() {
+		return this.props.movie.credits.cast.slice(0,5).map(member => member.name).join(', ');
+	}
+
 
 	render() {
 
@@ -18,14 +31,42 @@ class MovieDetails extends Component {
 			return <div>Loading...</div>;
 		}
 
-		const {vote_average, backdrop_path, title } = this.props.movie;
+		const {vote_average, poster_path, title, overview, genres, release_date, credits} = this.props.movie;
+		const director = credits.crew.find(member => member.job === 'Director');
+
 		return (
 			<div>
-				<img src={backdrop_path} alt={title} />
-				<h3>{title}</h3>
-				{vote_average}
-
-				<Link to="/">Back</Link>
+				<div style={{marginTop: '10px'}} className="row">
+					<div className="col m4">
+						<img className="movie-detail-poster" onError={this.onImgLoadError} src={poster_path} alt={title} />
+					</div>
+					<div className="col m8">
+						<h4>{title}</h4>
+						<p>
+							<strong>Rating: </strong>
+							{vote_average}
+						</p>
+						<p>
+							<strong>Genre: </strong>
+							{this.renderGenres()}
+						</p>
+						<p>
+							<strong>Release Date: </strong>
+							{new Date(release_date).toDateString().slice(4)}
+						</p>
+						<p>
+							<strong>Director: </strong>
+							{director.name}
+						</p>
+						<p>
+							<strong>Cast: </strong>
+							{this.renderCast()}
+						</p>
+					</div>
+				</div>
+						<p>
+							{overview}
+						</p>
 			</div>
 		)
 	}

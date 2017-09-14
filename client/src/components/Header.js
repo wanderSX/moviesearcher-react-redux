@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { resetMoviesState } from '../actions';
 
 class Header extends Component {
- 
+
  	renderContent() {
  		switch (this.props.auth.user) {
  			case null:
@@ -24,8 +25,8 @@ class Header extends Component {
     return (
       <nav>
         <div className="nav-wrapper grey darken-1">
-          <Link 
-            to='/'
+          <Link
+            to={{pathname: "/", state: "reset"}}
             className="left brand-logo"
           >
             MovieDB
@@ -45,4 +46,4 @@ function mapStateToProps({auth}) {
 	}
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, {resetMoviesState})(Header);

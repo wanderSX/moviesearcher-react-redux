@@ -23,8 +23,10 @@ class FilterBox extends Component {
 
   render() {
     return (
-      <div>
+      <div className='input-field inline'>
 	      <input
+          className="filter"
+          placeholder="Filter by title"
 	  			value={this.state.value}
 	  			onChange={this.onChange}
 	  		/>

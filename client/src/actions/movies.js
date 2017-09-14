@@ -4,7 +4,8 @@ import {
 	FETCH_MOVIE_DETAILS,
 	UPDATE_USER,
 	SET_FILTER,
-	RESET_MOVIES_STATE
+	RESET_MOVIES_STATE,
+	FETCH_GENRES
 } from '../constants/actionTypes';
 
 import { fixPosterUrls } from '../utils/movieUtils';
@@ -12,39 +13,61 @@ import { fixPosterUrls } from '../utils/movieUtils';
 const API_KEY = '1e1bde7f14240afd474dc201b3ff46f4'
 const ROOT_URL = 'https://api.themoviedb.org/3/'
 
-export const fetchTopMovies = () => async (dispatch) => {
-	const res = await axios.get(`${ROOT_URL}movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`);
 
+const fetchGenres = async (dispatch) => {
+	const res = await axios.get(`${ROOT_URL}genre/movie/list?api_key=${API_KEY}&language=en-US`);
+
+	dispatch({type: FETCH_GENRES, payload: res.data.genres});
+}
+
+export const fetchTopMovies = () => async (dispatch, getState) => {
+	const res = await axios.get(`${ROOT_URL}movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`);
 	const movies = fixPosterUrls(res.data.results);
-	//console.log('fetched',movies);
+
+	const {genres} = getState().movies;
+	if (!genres.length) {
+		fetchGenres(dispatch);
+	}
+
 	dispatch({type: FETCH_MOVIES, payload: movies});
 }
 
 export const fetchFavoriteMovies = () => async (dispatch, getState) => {
 	const {favoriteMovies} = getState().auth.user;
+	const {genres} = getState().movies;
 
 	const promises = favoriteMovies.map(async (id) => {
 		return await axios.get(`${ROOT_URL}movie/${id}?api_key=${API_KEY}`);
 	});
 	const res = await Promise.all(promises);
 	const movies = res.map(item => item.data);
+	console.log(genres.length);
+	if (!genres.length) {
+		fetchGenres(dispatch);
+	}
+
 
 	dispatch({type: FETCH_MOVIES, payload: fixPosterUrls(movies)});
 } 
 
-export const fetchMovies = (name) => async (dispatch) => {
+export const fetchMovies = (name) => async (dispatch, getState) => {
 	const res = await axios.get(`${ROOT_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${name}&page=1&include_adult=false`);
 
+	const {genres} = getState().movies;
+	if (!genres.length) {
+		fetchGenres(dispatch);
+	}
+
 	const movies = fixPosterUrls(res.data.results);
-	//console.log('fetched',movies);
 	dispatch({type: FETCH_MOVIES, payload: movies});
 }
 
 export const fetchMovieDetails = (id) => async (dispatch) => {
-	const res = await axios.get(`${ROOT_URL}movie/${id}?api_key=${API_KEY}`);
-	console.log('res', res.data);
-	res.data.backdrop_path = `https://image.tmdb.org/t/p/w500${res.data.backdrop_path}`;
-	dispatch({type: FETCH_MOVIE_DETAILS, payload: res.data});
+	const details = await axios.get(`${ROOT_URL}movie/${id}?api_key=${API_KEY}&append_to_response=credits`);
+	details.data.poster_path = `https://image.tmdb.org/t/p/w342${details.data.poster_path}`;
+	console.log('res', details.data);
+
+	dispatch({type: FETCH_MOVIE_DETAILS, payload: details.data});
 }
 
 export const addToFavorites = (id) => async (dispatch) => {

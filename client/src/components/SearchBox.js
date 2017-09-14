@@ -15,17 +15,26 @@ class SearchBox extends Component {
   handleSubmit(e) {
   	e.preventDefault();
 
-  	this.props.fetchMovies(this.state.value);
-  	this.setState({value: ''});
+    if (this.state.value) {
+    	this.props.fetchMovies(this.state.value);
+    	this.setState({value: ''});  
+    }
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-      	<input
-      		value={this.state.value}
-      		onChange={e => this.setState({value: e.target.value})} 
-      	/>
+      <form  className="card" onSubmit={this.handleSubmit}>
+        <div className="flex-row search-box">  
+          <input
+            className="search-input" 
+            placeholder="Find a movie"
+            value={this.state.value}  
+            onChange={e => this.setState({value: e.target.value})} 
+          />
+          <button className="btn-floating search" type="submit">
+           <i className="material-icons teal-text search">search</i>
+          </button>
+        </div> 
       </form>
     );
   }

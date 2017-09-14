@@ -5,9 +5,7 @@ import ProfileMovieList from './ProfileMovieList';
 
 class Profile extends Component {
 
-
 	componentDidMount() {
-		console.log('cdm profile');
 		this.props.fetchFavoriteMovies();
 	}
   render() {

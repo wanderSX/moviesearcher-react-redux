@@ -16,6 +16,13 @@ class Home extends Component {
 		this.props.resetMoviesState();
 	}
 
+	 componentWillReceiveProps(nextProps) {
+    if (nextProps.location.state === 'reset') {
+      this.props.resetMoviesState();
+      this.props.fetchTopMovies();
+    }
+  }
+
 	render() {
 		return (
 			<div>

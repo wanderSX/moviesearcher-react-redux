@@ -1,14 +1,21 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { truncate } from 'lodash'
 import { fetchTopMovies, addToFavorites, removeFromFavorites } from '../actions';
 import { getFavoriteMovies } from '../selectors';
 import MovieList from './MovieList';
 
 class ProfileMovieList extends Component {
   render() {
+
     return (
-      <MovieList {...this.props}/>
+      <div>
+        <h4>Your favorite movies</h4>
+        {this.props.movies.length < 1 ?
+          <div>Your list of favorite movies is empty. Add some movies.</div>
+          :
+          <MovieList {...this.props}/>
+        }
+      </div>
     );
   }
 }
@@ -16,7 +23,8 @@ class ProfileMovieList extends Component {
 function mapStateToProps(state) {
 	return {
 		movies: getFavoriteMovies(state),
-		auth: state.auth
+		auth: state.auth,
+    genres: state.movies.genres
 	}
 }
 
